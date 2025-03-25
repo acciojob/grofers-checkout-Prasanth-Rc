@@ -8,12 +8,17 @@ const getSum = () => {
     
     let totalPrice = 0;
     priceElements.forEach(priceElement => {
-        totalPrice += parseInt(priceElement.textContent);
+        totalPrice += parseInt(priceElement.textContent) || 0;
     });
     
     const existingTotalRow = document.querySelector(".total-row");
     if (existingTotalRow) {
         existingTotalRow.remove();
+    }
+    
+    const existingAns = document.getElementById("ans");
+    if (existingAns) {
+        existingAns.remove();
     }
     
     const table = document.querySelector("table");
@@ -22,8 +27,13 @@ const getSum = () => {
     
     const cell = document.createElement("td");
     cell.colSpan = 2;
-    cell.textContent = `Total Price: ${totalPrice}`;
     
+    const ansSpan = document.createElement("span");
+    ansSpan.id = "ans";
+    ansSpan.textContent = totalPrice;
+    
+    cell.textContent = "Total Price: ";
+    cell.appendChild(ansSpan);
     newRow.appendChild(cell);
     table.appendChild(newRow);
 };
